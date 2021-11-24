@@ -1,0 +1,14 @@
+header {
+    height: 64px;
+    width: auto; /* will fill the screen */
+    background-color: rgba(98, 0, 255, 0.39);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-container {
+    height: calc(100vh - 64px);
+    width: 100vw;
+    background-color: rgba(222, 135, 200, 0.473);
+}
