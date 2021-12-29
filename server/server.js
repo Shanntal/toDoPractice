@@ -27,9 +27,14 @@ app.get('/todos', async (req, res) => {
     res.status(200).send(todos);
 })
 
+app.post('/create', async (req, res) => {
+    const newTodo = await Todo.create({text: req.body.text});
+    res.status(200).send(newTodo);      // this line needed to indicate that the requet has succeeded
+})
+
 app.put('/:id', async (req, res) => {
     // console.log(req.body);  -> is the { newStatus: complete } -> 'complete' being the updated status of the todo (either true or false) after clicked
-    // console.log(req.params.id);  //.params is whatever comes after the : (i.e. line 30)
+    // console.log(req.params.id);  //.params is whatever comes after the :
     
     try {
         await Todo.update({complete: req.body.newStatus}, {where: {id:req.params.id}})
@@ -40,6 +45,14 @@ app.put('/:id', async (req, res) => {
 
 })
 
+app.delete('/:id', async (req, res) => {
+    try {
+        await Todo.destroy({ where: { id: req.params.id } })     //.params is whatever comes after the :
+        res.sendStatus(200);
+    } catch (err) {
+        res.send(400).send(err);
+    }
+})
 
 
 // making the app connect to a port where you are able to view it
